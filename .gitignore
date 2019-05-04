@@ -1,0 +1,15 @@
+*.aux
+*.bbl
+*.blg
+*.gz
+*.lof
+*.log
+*.out
+*.pdf
+*.toc
+*.txt
+figures/
+images/
+pdfa/
+figures.tex
+tables.tex
