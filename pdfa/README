@@ -1,0 +1,10 @@
+These files are needed to generate a PDF/A version of the thesis.
+
+The "PDFA_def.ps" file is a modified version of the same file
+from the standard GhostScript package.
+
+"sRGB Color Space Profile.icm" is an International Color Consortium
+(ICC) profile.  It is used during the generation of the PDF/A file.
+More information can be found at:
+ http://web.archive.org/web/20020603153925/srgb.com/usingsrgb.html
+

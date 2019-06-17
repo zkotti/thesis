@@ -1,12 +1,21 @@
-\documentclass[dvips,letterpaper,12pt]{report}
+\documentclass[dvips, letterpaper,12pt]{report}
+
 \usepackage{thesis}
 \usepackage[none]{hyphenat}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{{./figures/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.eps}
+\usepackage{url}
+\usepackage[noadjust]{cite}
+
+\renewcommand\thesection{\arabic{section}}
 
 \begin{document}
 
 \sloppy
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \thesistitle
 	{Implementation of Lexicon-based Sentiment \\
@@ -14,27 +23,28 @@
 	 Analysis on Greek Text Data \\
 	\vspace{1cm}
 	 -- at isMOOD Data Technology Services --}
-	{\emph{Zoe Kotti}}
+	{\emph{Zoe Kotti, t8150062@aueb.gr}}
 	{Bachelor of \emph{Science}}
 	{Department of \emph{Management Science and Technology}}
-	{\emph{June 2019}}
+	{\emph{July 2019}}
 
 \include{abstract}
 \include{ack}
-\include{contents}
 
-\pagenumbering{arabic}
-\include{introduction}
-\include{internship}
-\include{projects}
-\include{results}
-\include{timetable}
-\include{literature}
-\include{skills}
-\include{conclusions}
+\tableofcontents
+
+\include{part-i}
+
+\include{part-ii}
+\include{part-ii/introduction}
+\include{part-ii/internship}
+\include{part-ii/projects}
+\include{part-ii/results}
+\include{part-ii/timetable}
+\include{part-ii/skills}
+\include{part-ii/conclusions}
 
 \include{bib}
-
 \appendix
 \include{apdxa}
 
