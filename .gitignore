@@ -8,7 +8,10 @@
 *.log
 *.out
 *.pdf
-*.ps
+thesis.ps
 *.toc
 *.txt
+figures/README
 images/
+pdfa/README
+pdfa/sRGB Color Space Profile.readme
