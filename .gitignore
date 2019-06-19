@@ -8,6 +8,7 @@
 *.log
 *.out
 *.pdf
+*.png
 thesis.ps
 *.toc
 *.txt

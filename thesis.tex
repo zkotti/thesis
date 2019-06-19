@@ -1,6 +1,7 @@
 \documentclass[dvips, letterpaper,12pt]{report}
 
 \usepackage{thesis}
+\usepackage[LGR,T1]{fontenc}
 \usepackage[none]{hyphenat}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
@@ -10,6 +11,7 @@
 \usepackage[noadjust]{cite}
 
 \renewcommand\thesection{\arabic{section}}
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 
 \begin{document}
 
