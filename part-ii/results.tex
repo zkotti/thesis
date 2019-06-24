@@ -377,7 +377,7 @@ Eventually the following fields were constructed:
 \end{itemize}
 
 \subsubsubsection{greek\_sentiment\_terms}
-\label{subsubsubsection:greek-sentiment-terms}
+\label{subsubsubsec:greek-sentiment-terms}
 
 The last collection that was created
 contains the clean terms of greek\_terms as ids.
@@ -389,7 +389,7 @@ in order to match the words of the input text to the words of the lexicon.
 
 This collection contains only words ($words\_count = 1$)
 that have received sentiment through the process
-described in Section~\ref{subsubsec:greek-terms}.
+described in Section~\ref{subsubsubsec:greek-terms}.
 If a clean word was found in multiple records of greek\_terms,
 again the average scores are computed and inserted
 to the ``sentiment'' field,
@@ -549,6 +549,8 @@ whereas ``wicked'' was found in five records. \\
 The algorithm was developed in Python 2.7
 according to the aggregate-and-average method,
 as stated in Section~\ref{subsec:research}.
+The development began before the database was finalised,
+and was completed in four weeks' time.
 
 The algorithm starts by initialising a dictionary
 with the terms of greek\_sentiment\_terms,
