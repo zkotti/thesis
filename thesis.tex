@@ -6,12 +6,16 @@
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \graphicspath{{./figures/}}
-\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.eps}
 \usepackage{url}
 \usepackage[noadjust]{cite}
 
 \renewcommand\thesection{\arabic{section}}
 \newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
 \begin{document}
 
