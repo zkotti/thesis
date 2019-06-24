@@ -7,8 +7,7 @@
 *.lof
 *.log
 *.out
-*.pdf
-*.png
+thesis.pdf
 thesis.ps
 *.toc
 *.txt
