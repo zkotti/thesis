@@ -67,20 +67,22 @@
 % requirements of the School of Graduate Studies.
 % For usage example, see thesis.tex.
 %
-\newcommand{\thesistitle}[5]{%
+\newcommand{\thesistitle}[7]{%
 \thispagestyle{empty}
 \begin{center}
 
+#1 \\
+
+\vspace{\fill}
+
 \renewcommand{\baselinestretch}{1.0}%
-\textbf{\Large #1}
+\textbf{\Large #2}
 \renewcommand{\baselinestretch}{\spacing}%
 
 \vspace{1.0cm}
 
 by \\
-\copyright\ #2
-
-\vspace{\fill}
+\copyright\ #3
 
 \vspace{\fill}
 
@@ -88,12 +90,7 @@ A thesis submitted to the \\
 School of Undergraduate Studies \\
 in partial fulfilment of the \\
 requirements for the degree of \\
-#3 \\
-
-\vspace{\fill}
-
 #4 \\
-Athens University of Economics and Business
 
 \vspace{\fill}
 
@@ -101,7 +98,13 @@ Athens University of Economics and Business
 
 \vspace{\fill}
 
-Athens\hfill Greece
+#6 \\
+
+\vspace{\fill}
+
+#7 \\
+
+\vspace{\fill}
 \end{center}
 }
 
