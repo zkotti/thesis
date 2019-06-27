@@ -14,7 +14,7 @@
 
 % For other fonts, see http://www.tug.org/fonts/
 
-\oddsidemargin = 0in
+\oddsidemargin = 0.2in
 \textwidth = 6in
 
 \headheight = 0in
@@ -67,13 +67,13 @@
 % requirements of the School of Graduate Studies.
 % For usage example, see thesis.tex.
 %
-\newcommand{\thesistitle}[7]{%
+\newcommand{\thesistitle}[8]{%
 \thispagestyle{empty}
 \begin{center}
 
 #1 \\
 
-\vspace{\fill}
+\vspace{1.0cm}
 
 \renewcommand{\baselinestretch}{1.0}%
 \textbf{\Large #2}
@@ -81,30 +81,30 @@
 
 \vspace{1.0cm}
 
-by \\
-\copyright\ #3
+A thesis submitted to the School of Undergraduate Studies \\
+in partial fulfilment of the requirements for the degree of \\
+#3 \\
 
-\vspace{\fill}
+\vspace{1.5cm}
 
-A thesis submitted to the \\
-School of Undergraduate Studies \\
-in partial fulfilment of the \\
-requirements for the degree of \\
-#4 \\
-
-\vspace{\fill}
+{\Large #4} \\
 
 #5 \\
 
-\vspace{\fill}
+\vspace{1.5cm}
 
 #6 \\
 
-\vspace{\fill}
+\vspace{1.0cm}
 
 #7 \\
 
+\vspace{2.0cm}
+
+#8 \\
+
 \vspace{\fill}
+
 \end{center}
 }
 
