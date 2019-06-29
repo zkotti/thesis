@@ -9,6 +9,7 @@
 \usepackage[noadjust]{cite}
 % \usepackage{pgfgantt}
 \usepackage{tabularx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 
 % Handle warnings
 \usepackage{etoolbox}
@@ -47,10 +48,14 @@
 
 \tableofcontents
 
-\include{part-i}
+\include{part-i/parti}
 \include{part-i/preface}
-\include{part-i/sentiment-analysis}
-\include{part-ii}
+\include{part-i/analysis}
+\include{part-i/lexicon}
+\include{part-i/methodology}
+% \include{part-i/conclusions}
+
+\include{part-ii/partii}
 \include{part-ii/introduction}
 \include{part-ii/internship}
 \include{part-ii/projects}

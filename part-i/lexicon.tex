@@ -1,0 +1,471 @@
+\section{Lexicon-based Sentiment Analysis}
+\label{sec:lexicon}
+
+As explained in Section~\ref{subsec:approaches},
+lexicon-based sentiment analysis involves calculating orientation for a document
+from the semantic orientation (SO) of words or phrases in the document.
+Dictionaries for lexicon-based approaches can be created manually,
+or automatically, using seed words to expand the list of words.
+They can also be cross-domain or domain-specific.
+Domain-specific dictionaries are useful because the same word
+(e.g. \emph{cool, low}) might have different meaning in different domains.
+Therefore approaches that are able
+to extract domain-specific opinion dictionaries are necessary~\cite{AKKN14}.
+
+\subsection{Advantages over Machine Learning approach}
+\label{subsec:advantages}
+
+The majority of the statistical text classification research builds
+Support Vector Machine classifiers, trained on a particular data set
+using features such as unigrams or bigrams,
+and with or without part-of-speech labels,
+although the most successful features seem to be basic unigrams~\cite{TBTV11}.
+Classifiers built using supervised methods reach quite a high accuracy
+in detecting the polarity of a text~\cite{CZ05}.
+However, although such classifiers perform very well in the domain
+that they are trained on,
+their performance drops precipitously (almost to chance)
+when the same classifier is used in a different domain~\cite{AG05}.
+
+Another area where the lexicon-based model might be preferable
+to a classifier model is in simulating the effect of linguistic context.
+On reading any document, it becomes apparent that aspects of the local context of a word need to be taken into account in semantic orientation assessment,
+such as negation (e.g. \emph{not good})
+and intensification (e.g. \emph{very good}),
+aspects that Polanyi et al.~\cite{PZ06} named
+\emph{contextual valence shifters}.
+According to Kennedy et al.~\cite{KI06},
+there are four types of contextual valence shifters.
+These are further explained below.
+
+\begin{itemize}
+ \item \textbf{No modification}: The original meaning of the word
+ (e.g. \emph{good})
+ \item \textbf{Negation}: The word usually preceded by a negating term
+ (e.g. \emph{not good})
+ \item \textbf{Intensification}: The word usually preceded by an intensifying term
+ (e.g. \emph{very good})
+ \item \textbf{Diminishment}: The word usually perceded by a diminishing term
+ (e.g. \emph{less good})
+\end{itemize}
+
+In the above examples of \emph{good},
+the classifier cannot determine that these four types are in any way related, and so in order to train it accurately,
+there must be enough examples of all four in the training corpus.
+
+\subsection{Word Identification}
+\label{subsec:identification}
+
+Word identification is the process of matching a word of the input text
+to a term of the opinion dictionary in order to append sentiment to that word.
+The most apparent way to perform that is by trying to match the word as it is
+to a term of the dictionary.
+However, this method is restrictive because the word might not exist
+in the dictionary in the specific format.
+Especially in highly inflected languages,
+with gender and plural markers on nouns, as
+well as a rich system of verbal inflection~\cite{BTT09},
+matching the original word of the input text to the dictionary
+may not perform well, especially if the dictionary is not populated
+with all different versions of that term.
+
+Therefore, a few approaches have been proposed in literature
+for the handling of that issue with the three most common being described further on.
+
+\begin{itemize}
+ \item \textbf{Stemming}: This method reduces inflected (or sometimes derived) words
+ to their word stem, base or root form -- generally a written word form.
+ Stemmers become harder to design as the morphology, orthography, and character encoding of the target language becomes more complex.
+ Particularly, a Greek or Italian stemmer is more complex than an English one
+ because of a greater number of verb inflections.
+ Kalamatianos et al.~\cite{KMSA15} applied the Greek \emph{Ntais' stemmer}~\cite{Nta06}
+ to both their data and the dictionary they used
+ to increase the matching of the words.
+ There are two error measurements in stemming algorithms
+ derived from the work of Ntais et al.
+ for the construction of a Greek stemmer~\cite{NSBD16}:
+
+ \begin{enumerate}
+  \item \textbf{Overstemming}: This is an error where two separate inflected words
+  are stemmed to the same root, but should not have been -- a false positive.
+  \item \textbf{Understemming}: This is an error where two separate inflected words
+  should be stemmed to the same root, but are not -- a false negative.
+ \end{enumerate}
+
+ Stemming algorithms attempt to minimise each type of error,
+ although reducing one type can lead to increasing the other.
+ 
+ \item \textbf{Lemmatisation}:
+ This is the process of grouping together the inflected forms of a word
+ so they can be analysed as a single item,
+ identified by the word's lemma, or dictionary form.~\footnote{Collins English Dictionary, entry for \emph{lemmatise}}
+ Unlike stemming, lemmatisation depends on correctly identifying the intended part
+ of speech and meaning of a word in a sentence,
+ as well as within the larger context surrounding that sentence,
+ such as neighbouring sentences or even an entire document.
+ Brooke et al.~\cite{BTT09} used the SVMTool~\cite{GM04}
+ combined with the FreeLing software package~\footnote {\url {http://nlp.lsi.upc.edu/freeling/}}
+ in order to populate their dictionary with lemmas.
+
+ \item \textbf{Edit distance}: This method suggests quantifying
+ how dissimilar two strings (words) are to one another
+ by counting the minimum number of operations required
+ to transform one string into the other.
+ The most popular distance measures are the following.
+ 
+ \begin{itemize}
+  \item \textbf{Levenshtein distance}:
+  This measure calculates the minimum number of single-character edits
+  (insertions, deletions or substitutions) required to change one string
+  into the other.
+  
+  \item \textbf{Jaro-Winkler distance}:
+  This measure uses a prefix scale \emph{p}
+  which gives more favourable ratings to strings
+  that match from the beginning for a set prefix length \emph{l}.
+  The value range of this distance is $[0,1]$,
+  with 1.0 being the absolute match of the word to the dictionary.
+  Dritsa in her work~\cite{Dri18} uses Jaro-Winkler
+  to append sentiment to the Hellenic parliament proceedings.
+  She accepts the matches with a distance equal to or above 0.97 instead of 1.0
+  (exact match), in order to match the words of the corpus that are in plural
+  with the lexicon terms that are not available in plural.
+  
+  \item \textbf{Damerau-Levenshtein distance}:
+  This measure computes the minimum number of operations
+  (consisting of insertions, deletions or substitutions of a single character,
+  or transposition of two adjacent characters)
+  required to change one string into the other.
+  The Damerau-Levenshtein distance differs from the classical Levenshtein distance
+  by including transpositions among its allowable operations
+  in addition to the three classical single-character edit operations
+  (insertions, deletions and substitutions)~\cite{Bar07,Lev66}.
+  
+  \item \textbf{Longest Common Subsequence (LCS)}:
+  This measure attempts to find the longest subsequence common to all sequences
+  in a set of sequences (often just two sequences).
+  LCS allows only insertion and deletion, not substitution.
+  
+  \item \textbf{Hamming distance}:
+  This distance measures the minimum number of substitutions
+  required to change one string into the other,
+  or the minimum number of errors that could have transformed one string into the other.
+  The Hamming distance allows only substitution,
+  hence, it only applies to strings of the same length.
+  \end{itemize}
+ 
+\end{itemize}
+
+Our methodology suggested in Section~\ref{sec:methodology} facilitates
+from the Lemmatisation approach
+by employing the lemmatiser of spaCy library
+that has recently been adapted to the Greek language~.\footnote{ \url{https://spacy.io/api/lemmatizer}}
+
+\subsection{Related Work}
+\label{subsec:related}
+
+In this section we demonstrate related work regarding lexicon-based sentiment analysis.
+We distinguish research according to language and isolate work
+that has been done for the Greek language
+from work on multiple foreign languages.
+
+\subsubsection{Multiple Languages}
+\label{subsubsec:multiple}
+
+Opinion dictionaries are critical to various steps of sentiment analysis
+since algorithms depend their initialisation, enhancement and operation on them. Therefore, high-quality dictionaries are required
+for this type of analytics~\cite{AKKN14}. 
+Many researchers have addressed the problem
+of constructing subjective (opinion) lexicon for different languages in recent years.
+To compile a subjective lexicon Bing Liu~\cite{Liu10} investigated three main approaches
+which are outlined in the following paragraphs.
+
+A manual approach is described to be the simplest form
+but it is a very time consuming process.
+The accuracy of the words collected has been improved
+by combining an automated method to this manually generated lexicon.
+The automated approaches are two types;
+the main one is dictionary based and the other is corpus based.
+In the dictionary-based method a compilation process is initiated
+using a small word list known as the seed list.
+Normally, this seed list is manually constructed using adjectives and adverbs
+with their orientation (polarity).
+The seed list is then propagated through an online dictionary,
+such as WordNet, to grow the list by adding new terms
+by searching for the synonyms and antonyms of the seed list words.
+The weakness of the subjective lexicon constructed in this nature is,
+it becomes domain-specific in orientation.
+
+An alternative approach to overcome the domain specificity is the corpus-based method.
+In the dictionary-based method, the seed list is searched through the corpus
+by searching for any syntactic or co-occurrence patterns of the seed word.
+An additional adjective (adverb) of the seed word with its orientation is added
+to the list using a set of constrains or conventions on connectives.
+The most of the rules or constraints are designed using the connectives \emph{and}, \emph{or}, \emph{but}, \emph{either-or} and \emph{neither-nor}.
+These linguistic rules are called sentiment consistency.
+One of the limitations of this method is
+that building a corpus that represents all the words in a language is impossible.
+
+A Hindi subjective lexicon constructed and discussed in~\cite{BAV12} is consisted
+of a seed list of 45 adjectives and 75 adverbs.
+In the adjective list 15 of each positive, negative
+and objective adjectives are considered.
+Similarly, the same polarities but 25 of each in adverb collection are included
+in the adverb seed list.
+The Breadth First search is performed to expand the seed list
+on a graph-based WordNet where words are connected to each other
+to indicate their synonyms and antonym relations.
+A new word is appended to the list assigning the polarity of the word
+using an assumption that synonym carries the same polarity,
+and antonym shows the opposite polarity of the root word (the seed list word).
+In this way, the authors manage to build a Hindi subjective lexicon
+with 8,048 adjectives and 888 adverbs.
+The new subjective lexicon is then evaluated using two methods:
+by human judgement,
+and by simple classification on pre-annotated product review data set.
+In the classification method,
+the authors first identify the adjectives and adverbs using a shallow parser.
+The weighting of the review is then calculated using the unigram
+defined as a single adjective or adverb
+with a positive, a negative and an objective polarity.
+The maximum count is used as the final score.
+The authors comment the reason for the poor agreement as the ambiguity in Hindi words.
+However, later an approximately 80\% accuracy rate is achieved
+using the same proposed classification method
+but by stemming the words in the review that do not have a matching subjective lexicon. Negation is also handled in the classification method.
+
+Huang et al.~\cite{HNS14} utilise the chunk dependency knowledge
+to extract the domain-specific sentiment lexicon based on constrained label propagation. They divide the whole strategy into six steps.
+Firstly, they detect and extract domain-specific sentiment terms
+by combining the chunk dependency parsing knowledge and prior generic sentiment lexicon.
+To refine the sentiment terms some filtering and pruning operations are carried out
+by others.
+Then they select domain-independent sentiment seeds
+from the semi-structured domain reviews which have been designated manually
+or directly borrowed from other domains.
+As the third step, they calculate the semantic associations between sentiment terms
+based on their distribution contexts in the domain corpus.
+For this calculation, the point-wise mutual information (PMI) is utilised
+which is commonly used in semantic linkage in information theory.
+Then, they define and extract some pair-wise contextual and morphological constraints
+between sentiment terms to enhance the associations.
+The conjunctions like \emph{and} and \emph{as well as} are considered
+as the direct contextual constraints, whereas \emph{but} is referred to
+as a reverse contextual constraint.
+The above constraints propagate throughout the entire collection
+of candidate sentiment terms.
+Finally, the propagated constraints are incorporated into label propagation
+for the construction of a domain-specific sentiment lexicon.
+The proposed approach shows an accuracy increment
+of approximately 3\% over the baseline methods.
+
+In the work of Amati et al.~\cite{AABG18}
+a probabilistic method is presented that builds an opinion word lexicon.
+The method uses a set of opinion documents which is used as a biased sample
+and a set of relevant documents as a pool of opinions.
+In order to assess the effectiveness of the algorithm,
+a dictionary made up of 8,000 words is used, built in the works~\cite{RW03,SV07}.
+Certain probabilistic functions such as Information Content,
+Opinion Entropy and Average Opinion Entropy are used as extraction tools.
+The method is based upon the observation that nouns contain high information value,
+while adjectives, adverbs and verbs (usually opinion words) provide additional information to the context.
+Upon these observations and the probabilistic tools
+they extract the opinion word lexicon.
+
+Ding et al.~\cite{DLY08} tackle the problem of opinion target orientation
+and summarization.
+The method uses an opinion lexicon from WordNet~\cite{HL04}.
+A list of content dependent opinion words such as nouns, verbs and word phrases
+that are joined together is utilised.
+The algorithm uses a score function,
+which is a formula that calculates opinion target orientation
+by exploiting co-existence of opinion words and opinion targets in a sentence
+and the variance of distance among them.
+Linguistic patterns and syntactic conventions are used
+in order to boost the efficiency of the proposed method.
+
+Kanayama et al.~\cite{KN06} propose an unsupervised lexicon building method
+for the detection of \emph{polar clauses}
+(clauses that can be classified as positive or negative)
+in order to acquire the minimum syntactic structures called \emph{polar atoms}
+(words or phrases that can be classified as positive or negative opinion modifiers).
+This part of process includes a list of syntactic patterns
+that helps the identification of propositional sentences.
+Moreover, the method uses an opinion lexicon and statistical metrics
+such as coherent precision and coherent density
+in order to acquire true polar atoms from fake ones.
+
+Liu et al.~\cite{LXLZ13} in their work on opinion target extraction
+exploit a model called partially supervised word alignment,
+which discovers alignment links between opinion targets and opinion modifiers
+that are connected in bipartite graph.
+Initially some high precision low recall syntactic patterns are used as training sets
+for generating initial partial alignment links.
+Then these initial links are fed into the alignment model.
+The selection of opinion target candidates is based upon a factor called confidence.
+Candidates with higher confidence are extracted as the opinion targets.
+
+\subsubsection{Greek Language}
+\label{subsubsec:greek}
+
+A dataset of Greek tweets was developed by The Social Sensor Project~\cite{BPP14},
+in an attempt to predict the result of the upcoming elections.
+The dataset is of a relatively small size (368,547 tweets)
+since the collected tweets span a small period of time just before the elections
+and were only of political interest, thus, domain-specific.
+In order to append sentiment to this dataset of tweets,
+a Greek sentiment lexicon was first created with a method very similar
+to the one we develop in Section~\ref{sec:methodology}.
+This lexicon is not publicly available to the best of our knowledge,
+thus it could be directly used in our project.
+
+Three different English sentiment lexicons are translated into Greek
+by using Google Translate.
+These lexicons are SentiWordNet
+(contains about 150,000 synsets with a double value indicating their polarity),
+Hu and Liu's Opinion Lexicon (a list of about 6,800 positive and negative terms)
+and the subjectivity lexicon that serves as part of the Opinion Finder
+(a list of about 8,000 terms along with their POS, subjectivity -- strong or weak -- and polarity indication).
+They assign the values of 1 and -1 for the positive and negative terms
+of Opinion Lexicon respectively;
+for the case of Opinion Finder, they use four values (-1, -0.5, 0.5, 1)
+to represent every word depending on its subjectivity
+(0.5 and -0.5 for weak, 1 and -1 for strong) and polarity;
+for SentiWordNet, they keep the double-weighted values of every synset.
+After translating the terms into Greek,
+they remove all terms that are not a single word,
+due to the inaccuracy observed in those translations.
+If the same word appears in different lexicons,
+they consider the average value as its sentimental value,
+resulting into 13,582 positive and 18,356 negative terms.
+In order to detect a tweet's sentiment, they use a naive sum-of-weights method
+and assign the majority class label (positive/negative) to it.
+
+Kalamatianos et al.~\cite{KMSA15} developed a new dataset of Greek tweets
+of a more general interest and wider timespan
+compared to the previous one of Greek tweets,
+resulting in a larger dataset in order of magnitude (4,373,197 tweets).
+The tweets are collected via the Streaming API of Twitter
+following a width-first search of the social graph of Twitter.
+The tweets are annotated using the Greek Sentiment Lexicon~\cite{TPK14}
+which contains 2,315 entries evaluated for the following six sentiments:
+\emph{Anger, Disgust, Fear, Happiness, Sadness and Surprise}.
+The dictionary includes emotional evaluation of entries by four independent raters
+who were asked to rate each entry according
+to the possibility of it expressing the corresponding sentiment.
+In order to determine the agreement between the raters for each pair of raters
+Kalamatianos et al. use Pearson's correlation coefficient.
+They also examine the pairwise correlation of the sentiments in the terms of the lexicon
+and observe that there exist highly correlated pairs: Anger/Disgust and Happiness/Surprise.
+In addition, they note that another trait of this lexicon is
+that it is not designed in a manner that its entries coincide
+with the way the users express themselves through social networks.
+It contains a large amount of entries that do not frequently appear in tweets,
+so it may not be the most ideal for their job.
+In fact they measure that only 11.7\% of the words
+that they examine are contained in the dictionary.
+
+In order to apply sentiment to their collection of tweets,
+for each entry of the lexicon identified in a tweet,
+they form a vector with six components, one for each examined sentiment of the lexicon.
+This results in a set of vectors, one vector for each entry identified in the tweet.
+Also, for each tweet they calculate another vector composed of six components.
+Each component of this vector is calculated according to four different formulas.
+Formula 1 is simply the arithmetic mean of entries that were identified in each tweet.
+In Formula 2 they use the quadratic mean which is selected given its property
+to return higher values in cases of components with high variance.
+In this way, it highlights the entries with a high value in one of their components.
+According to Formula 3, they assign the maximum sentiment
+found in the words contained in the tweet, to the whole tweet.
+They base this on the assumption that the dominant sentiment of a tweet
+is expressed in the words with the highest sentiment intensity.
+Finally, Formula 4 is a method mainly used in data fusion
+and returns a higher value for the tweets that contain multiple words
+with high intensity in a particular sentiment.
+
+Kalamatianos et al. in the same work also apply sentiment to hashtags
+by combining both the arithmetic and the quadratic mean.
+They reject the maximum formula as its results would only depend
+on the most sentimental tweet, not taking into account the rest of the data.
+They also reject the last formula as it creates an unfair bias towards hashtags
+with a larger number of tweets.
+They observe that the proposed algorithm is able to extract a result
+for the sentimental content of the thematic categories
+which corresponds to their intuition.
+In general, their results indicate that the sentiments \emph{Sadness}
+and \emph{Fear} receive smaller ratings than the other sentiments.
+This is characteristic for the lexicon,
+as these two sentiments receive lower values on average, compared to the others.
+
+Dritsa in her work on speech quality evaluation and sentiment analysis
+on the Hellenic Parliament proceedings~\cite{Dri18} utilises the formulas
+described in the previous work of Kalamatianos et al.
+She uses two Greek opinion lexicons: the Greek Sentiment Lexicon,
+and a collection of positive and negative words~\footnote{\url{https://sites.google.com/site/datascienceslab/projects/multilingualsentiment}}
+offered by the Multilingual Sentiment Project of the Data Science Lab
+of the Stony Brook University of New York.
+She then evaluates the Hellenic Parliament proceedings of the years 1989--2017
+in terms of sentiment using these two lexicons.
+
+According to the Greek Sentiment Lexicon,
+the results show that the speeches and discussions
+that take place in parliament sittings are mainly characterised
+by \emph{Surprise} followed closely by \emph{Anger} and \emph{Disgust}.
+The less common sentiment encountered is \emph{Sadness}.
+\emph{Happiness} and \emph{Fear} fall in
+between the most common sentiments and \emph{Sadness},
+while the score of the sentiments is quite steady throughout the years.
+According to the lexicon of the Multilingual Sentiment Project,
+the findings indicate that positive words have a stronger presence
+than negative words during all the years examined.
+Dritsa also notices an increase in the percent number of positive words
+in recent years,
+which means that the speeches and discussions that take place in parliament sittings
+are more positively than negatively charged, especially in the last decade.
+
+Another related work of Spatiotis et al.~\cite{SMPP16} presents a supervised approach
+which classifies user-generated comments into the proper polarity category.
+Their dataset is consisted of data derived from questionnaires
+collected by the Greek School Network.
+These questionnaires include four open-ended questions (free text)
+and were answered by learners who attended a web service (teleconference).
+In total the dataset comprises of 11,156 user-generated comments.
+An extensive experimental study is conducted regarding learners' attitudes and opinions
+on the e-lectures that they attended.
+The authors perform a multi-level categorisation of opinion analysis of written texts
+based on the scale $[1,5]$ where is 1 stands for \emph{very negative},
+2 for \emph{negative}, 3 for \emph{neutral}, 4 for \emph{positive},
+and 5 for \emph{very positive}.
+
+They manually append sentiment to the comments of learners
+based on the document-level approach.
+Furthermore, they incorporate the entity-and-aspect-level approach
+by breaking down each comment into aspects and manually annotating each aspect separately.
+After the manual annotation of the comments,
+they use these annotated comments in order to train a feature extractor
+and convert each input value to a feature set.
+The features regarded involve number of: letters, words, capital/small letters,
+special characters, digits, and average word length of a user-generated comment.
+In addition, information on the part-of-speech of each word is maintained,
+along with the number of occurrences of each word in the opinion-based text.
+The particular feature sets and labels are fed to the machine learning algorithm
+to create a model.
+The same feature extractor is used for prediction,
+in order to convert unseen inputs to feature sets.
+These feature sets are then fed to the model which generates predicted labels.
+
+For the data classification process
+the authors test the J48, IBk, Multilayer Perceptron (MLP),
+PolyKernel and RBFKernel algorithms.
+For the class of \emph{very negative} comments
+the best accuracy rate is reached by J48,
+although none of the rates is satisfactory
+due to the small size of the particular class.
+For the class of \emph{negative} comments J48 again outperforms the other algorithms.
+For the class of \emph{neutral} comments
+PolyKernel\_C\_10 indicates the highest accuracy rate.
+For the class of \emph{positive} comments MLP\_N\_500 is the most accurate algorithm.
+Lastly, for the class of \emph{very positive} comments RBFKernel\_C\_1 performs better than the rest.
+Overall, the best performance is achieved by J48.
+
+

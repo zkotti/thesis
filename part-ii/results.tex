@@ -340,12 +340,13 @@ For the creation of the Greek lexicon,
 three initial data sources were used:
 
 \begin{enumerate}
- \item \emph{Aspell}: An official Greek dictionary used in OpenOffice/LibreOffice Spell~\footnote{\url {http://www.elspell.gr/myspell}}
+ \item \emph{Aspell v0.08}: An official Greek dictionary used in OpenOffice/LibreOffice Spell~\footnote{\url {http://www.elspell.gr/myspell}}
  that contains 828,806 terms.
     
  \item \emph{Wiktionary}: A dictionary of 92,747 Greek terms from Wiktionary.~\footnote{\url {https://github.com/eellak/gsoc2018-spacy/blob/6212c56f94ca3926b0959ddf9cee39df28e1c5a8/spacy/lang/el/lemmas/elwords_from_wiktionary.txt}}
 
- \item \emph{Hunspell}: A collection of 458,331 Greek terms from Hunspell.~\footnote{\url {https://github.com/eellak/gsoc2018-3gm/blob/master/resources/greek_lemmas.py}}
+ \item \emph{Greek Lemmas}: A collection of 458,331 Greek terms with their lemmas
+ from the Google Summer of Code 2018 - 3gm project.~\footnote{\url {https://github.com/eellak/gsoc2018-3gm/blob/master/resources/greek_lemmas.py}}
 \end{enumerate}
 
 The dictionary was then populated with the lemmas of the terms
@@ -355,7 +356,7 @@ Eventually the following fields were constructed:
 \begin{itemize}
  \item \emph{\_id}: A unique term derived from one of the above data sources.
  
- \item \emph{clean}: The term in lowercase with no accentuation.
+ \item \emph{clean}: The term in lowercase with no intonation.
  
  \item \emph{sentiment}: The sentiment mapped from english\_sentiment\_terms
  based on the lowercase translation.
@@ -366,7 +367,7 @@ Eventually the following fields were constructed:
  is also included, along with the magic number as described before.
  
  \item \emph{sources}: The data source(s) of the term:
- ``aspell'', ``wiktionary'', ``hunspell'', ``lemmas\_generated''.
+ ``aspell'', ``wiktionary'', ``greek\_lemmas'', ``lemmas\_generated''.
  
  \item \emph{sources\_count}: The number of data sources of the term.
  
@@ -383,7 +384,7 @@ The last collection that was created
 contains the clean terms of greek\_terms as ids.
 The reason lies in the algorithm,
 as described in Section~\ref{subsec:algorithm};
-the input text is cleaned from any case sensitivity or accentuation,
+the input text is cleaned from any case sensitivity or intonation,
 thus a clean version of the Greek lexicon was needed
 in order to match the words of the input text to the words of the lexicon.
 
@@ -434,9 +435,9 @@ The number of records of each collection is listed below:
  \begin{itemize}
   \item 132,943 unique from Aspell
   \item 6,399 unique from Wiktionary
-  \item 55 unique from Hunspell
+  \item 55 unique from Greek Lemmas
   \item 97,793 new terms (lemmas) produced from spaCy library
-  \item 427,233 from two sources (Aspell/Wiktionary/Hunspell/Lemmas Generated)
+  \item 427,233 from two sources (Aspell/Wiktionary/Greek Lemmas/Lemmas Generated)
   \item 271,124 from three sources
   \item 16,208 from four sources
  \end{itemize}
@@ -567,7 +568,7 @@ and each sentence is then cleaned from the following features:
  \item numbers
  \item stop words derived from a pre-defined list
  \item punctuation
- \item accentuation
+ \item intonation
  \item uppercase: All characters are converted to lowercase.
  \item non-alphanumeric characters
  \item identical consecutive characters:
