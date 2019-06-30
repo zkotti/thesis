@@ -9,9 +9,9 @@ to analyse people's opinions, sentiments, evaluations, appraisals, attitudes, an
 organisations, individuals, issues, events, topics, and their attributes.
 Sentiment analysis represents a large problem space.
 
-There are also many names and slightly different tasks,
-e.g., \emph{sentiment analysis, opinion mining, opinion extraction, sentiment mining, subjectivity analysis, affect analysis, emotion analysis,
-review mining}, etc.
+There are also many names and slightly different tasks
+such as \emph{sentiment analysis, opinion mining, opinion extraction, sentiment mining, subjectivity analysis, affect analysis, emotion analysis,
+review mining}.
 However, they are now all under the umbrella
 of sentiment analysis or opinion mining.
 While in industry, the term \emph{sentiment analysis} is more commonly used,
@@ -36,7 +36,7 @@ Third, for the first time in human history,
 we now have a huge volume of opinionated data in the social media on the Web. Without this data, a lot of research would not have been possible~\cite{Liu12}.
 
 Not surprisingly, the inception and rapid growth of sentiment analysis coincide with those of the social media.
-In fact, sentiment analysis is now right at the center
+In fact, sentiment analysis is now right at the centre
 of the social media research.
 Hence, research in sentiment analysis not only has an important impact on NLP, but may also have a profound impact on management sciences,
 political science, economics, and social sciences
@@ -76,7 +76,7 @@ which are described further on.
  However, we should note that subjectivity is not equivalent to sentiment
  as many objective sentences can imply opinions,
  e.g., \emph{``We bought the car last month
- and the windshield wiper has fallen off.''}.
+ and the wind shield wiper has fallen off.''}.
  
  \item \textbf{Entity and Aspect level}: Both the document-level
  and sentence-level analyses do not discover
@@ -118,7 +118,8 @@ and determine whether the sentiment is positive or negative on each aspect.
 Therefore, the aspect-level seems a more favourable practice but still,
 it is even more difficult to implement
 and also consists of several sub-problems
-as explained in the work of Liu~\cite{Liu12}.
+as explained in the work of Liu~\cite{Liu12}
+on sentiment analysis and opinion mining.
 
 \subsection{Features}
 \label{subsec:features}
@@ -153,9 +154,11 @@ and are further elaborated below.
  
  \item \textbf{Link-based features}:
  These refer to link/citation analysis
- for the evaluation of sentiments for Web artifacts and documents.
- In the work of Efron~\cite{Efr08} it was discovered that opinion Web pages
- heavily linking to each other often share similar sentiments.
+ for the evaluation of sentiments for Web artefacts and documents.
+ Efron~\cite{Efr08} in his work
+ on classifying subjective documents by cociation analysis
+ discovered that opinion Web pages heavily linking to each other
+ often share similar sentiments.
  However, due to the limited usage of link-based features,
  it is unclear how effective link-based features may be
  for sentiment classification~\cite{ACS08}.
@@ -178,7 +181,7 @@ opinion expression for each case~\cite{GSZ13,ACS08,Gam04}.
 \label{subsec:approaches}
 
 The widespread approaches of sentiment analysis can be broadly categorised
-into two main classes, according to the work of Dritsa~\cite{Dri18}.
+into two main classes according to the work of Dritsa~\cite{Dri18}.
 These classes are depicted in the following figure.
 
 \begin{figure}[ht]
@@ -198,25 +201,25 @@ These classes are depicted in the following figure.
  and the opinions expressed in the writing,
  in either a \emph{supervised} or an \emph{unsupervised} way~\cite{GSZ13,PLV02}.
  With the term \emph{supervised},
- we mean that the classifier receives a set of manually labeled examples
+ we mean that the classifier receives a set of manually labelled examples
  as training data and makes predictions for all unseen points~\cite{MRT12}.
  With the term \emph{unsupervised},
- we mean that the classification receives unlabeled data
+ we mean that the classification algorithm receives unlabelled data
  and makes evaluations or predictions for all unseen points~\cite{MRT12}.
  Labels can be assigned to training instances manually
- through human evaluation of the text, or can be predefined with ratings,
+ through human evaluation of the text, or can be predefined with ratings
  such as the number of stars in a review~\cite{GSZ13}.
  \emph{Semi-supervised} and \emph{unsupervised} techniques are proposed
- when there is no initial set of labeled data
+ when there is no initial set of labelled data
  for training the classification algorithm~\cite{HZ11,XGYZ13}.
  Furthermore, \emph{hybrid} approaches,
  combining \emph{supervised} and \emph{unsupervised} techniques,
  or even \emph{semi-supervised} techniques,
  can be used to classify sentiments~\cite{KL14,KB06}.
  Concerning the feature selection for the detection of sentiment,
- Natural Language Processing plays an important role,
+ Natural Language Processing plays an important role
  as it provides useful commonly used features
- such as the frequency of terms, part of speech information
+ such as the frequency of terms, part-of-speech information
  and syntactic dependencies~\cite{SORH15}.
  
  Many prominent approaches to sentiment analysis utilise
@@ -248,14 +251,9 @@ These classes are depicted in the following figure.
  
 \end{itemize}
 
-In the particular thesis we focus on the lexicon-based approach.
-We analyse the current methodologies implemented,
-distinguish them between multi-lingual and language-specific,
-and evaluate the ones applicable to the Greek language.
+In this thesis we focus on the lexicon-based approach.
+We analyse its characteristics, advantages and related work
+implemented first for all languages and then exclusively for the Greek.
 We also propose a specific methodology for the Greek language
 that deploys the dictionary-based approach in Section~\ref{sec:methodology}
-and later implement it in Part II: Section~\ref{subsec:database}.
-Our methodology suggests the construction of a Greek dictionary
-from a set of sources,
-and the annotation of this dictionary with sentiment
-according to the translation of an already annotated English dictionary.
+and later implement it in Part II: Section~\ref{sec:results}.

@@ -2,28 +2,26 @@
 \label{sec:results}
 
 The results of the main project I implemented
-during my three-month internship at isMOOD can be divided
-into three main categories:
+during my three-month internship at isMOOD can be classified
+into three main categories.
 
-\begin{itemize}
-  \item \emph{Phase 1: Research Conduction}: It includes all research that was conducted
+\begin{enumerate}
+  \item \textbf{Research Conduction}: It includes all research that was conducted
   in order to find the most suitable approach
   that would be followed for the accomplishment of the project. 
-  \item \emph{Phase 2: Database Construction}: It includes all activities related to the construction
-  of the database.
-  \item \emph{Phase 3: Algorithm Development}: It summarises all activities related to the development
+  \item \textbf{Database Construction}: It includes all activities related to the construction of the database.
+  \item \textbf{Algorithm Development}: It summarises all activities related to the development
   of the algorithm in Python.
-\end{itemize}
+\end{enumerate}
 
-Courses of the University that contributed to the fulfilment
-of the activities of the above phases are the following:
+Courses of University that contributed to the fulfilment
+of the above-mentioned activities are the following:
 
 \begin{itemize}
  \item Algorithms and Data Structures (Semester 4)
+ \item Software Engineering in Practice (Semester 6)
  \item Database Management Systems (Semester 3)
  \item Programming I \& II (Semesters 2 \& 3)
- \item Software Engineering in Practice (Semester 6)
- \item Big Data Management Systems (Semester 8)
 \end{itemize}
 
 These courses provided me with fundamental knowledge and experience
@@ -32,25 +30,24 @@ with Python, databases, and programming in general.
 \subsection{Phase 1: Research Conduction}
 \label{subsec:research}
 
-To find what approach we would follow,
+To find what approach would be followed,
 which are currently the best practices, tools and technologies available
-that we would use for the construction of the database
+that would be used for the construction of the Greek sentiment lexicon
 and for the development of the algorithm,
 I devoted a two-week time to perform research.
 
-In order to familiarise with the areas
-of Text Analytics and Sentiment Analysis,
-due to my lack of any previous experience and knowledge on them,
+In order to familiarise with the field of sentiment analysis,
+due to my lack of any previous experience and knowledge on it,
 I searched on Google Scholar\footnote{\url {https://scholar.google.gr/}}
 for associated research.
-At first, my research was not language specific
-because my intention was to understand these areas.
+At first, my research was not language-dependent
+because my intention was to understand this area.
 Luckily, a variety of studies are publicly available
 and I was provided with a lot of information.
 
 From my initial research, I found that 
 there are currently two main approaches
-to perform Sentiment Analysis in Software Engineering.
+to perform sentiment analysis.
 The first approach uses Machine Learning methods.
 It facilitates from already available data,
 however there is one critical restriction.
@@ -59,17 +56,17 @@ is usually trained on data from specific domains,
 thus when a new domain is introduced,
 the algorithm usually does not perform adequately well.
 isMOOD already uses this approach
-and is challenged by the abovementioned downside,
+and is challenged by the above-mentioned downside,
 and for that reason they asked me to develop
 an algorithm based on the second approach.
 This approach would be used on untrained domains of data.
 
-The second approach to perform Sentiment Analysis
+The second approach to perform sentiment analysis
 can be characterised as a more general approach.
 It uses a lexicon as its base (lexicon-based)
 which contains terms annotated with sentiment,
-receives a text as input, divides it into words,
-and each word is mapped to the lexicon
+receives a text as input, usually breaks it down into words,
+and each word is mapped to a term of the lexicon
 in order to find its sentiment.
 In its simplest form, the one I also implemented,
 the overall sentiment of the text is inferred
@@ -78,24 +75,23 @@ as explained in the thorough guide
 to lexicon-based methods for sentiment analysis~\cite{TBTV11};
 we sum the sentiment (positive, negative, objective) scores
 of all words and divide them with the total number of words.
-The preponderant sentiment that occurs in this way
+The dominant sentiment that occurs in this way
 is the final overall text sentiment.
 
-The problem with this approach is that it is language dependent
-since it requires a lexicon of terms annotated with sentiment.
+The problem with this approach is that it is language-dependent
+since it requires a sentiment lexicon.
 From my research, I unfortunately discovered that there are
-not enough annotated sources of data for the Greek language.
+not enough sources of sentiment data for the Greek language.
 In order to solve this issue
-and generate the required annotated Greek lexicon for our project,
-we decided to translate an English annotated lexicon to Greek.
+and generate the required Greek sentiment lexicon for our project,
+we decided to translate an English sentiment lexicon into Greek.
 
 For that purpose I searched and found
 that the best publicly available English annotated lexicon
 is SentiWordNet 3.0.\footnote{\url {https://github.com/aesuli/SentiWordNet}}
 For the translation, I found that the most appropriate translator
 is the Google Cloud Translation API.\footnote{\url {https://cloud.google.com/translate/docs/}}
-The downside of Google Cloud Translation API is
-that it is not free.
+The downside of Google Cloud Translation API is that it is not free.
 Despite that, when you create a new Google Cloud account
 you are currently provided with a free amount of credits
 that you can use on any available Google service.
@@ -110,7 +106,7 @@ The default limits of Google Cloud Translation API\footnote {\url {https://cloud
 \end{itemize}
 
 For the development of the algorithm,
-I was instructed to create a simple algorithm, a baseline.
+I was instructed to create a baseline algorithm.
 From the research that was conducted and after a lot of fruitful discussions
 with all the professionals mentioned
 in Section~\ref{subsec:technical-activities},
@@ -145,15 +141,15 @@ and as you process the information stored,
 you find more efficient ways to represent it in the schema.
 
 The second reason lies in the time consuming queries
-that were run in order to store all information.
-All queries to MongoDB were run through OpenVPN
-on a 6-core Cloud Virtual Machine with 16GB RAM
+that were executed in order to store all information.
+All queries to MongoDB were executed through OpenVPN
+on a six-core Cloud Virtual Machine with 16GB RAM
 provided by DigitalOcean.
-The queries were executed far more quickly in this way
-than on a local computer, plus they could be run
+The queries progressed far more quickly in this way
+than on a local computer, plus they could run
 in screen mode, thus have parallel executions of multiple queries,
 without worrying about any interruptions
-that would lead to the failure of a query.
+that would lead to failures.
 
 Despite that, some queries would run for days.
 For instance, the population of the Greek lexicon with the lemmas
@@ -182,12 +178,12 @@ to transform the information in the desired format
 and then produce extra attributes.
 
 At the end, the final database schema in MongoDB
-that we named ``lexicondb''
+that we named \emph{lexicondb}
 is composed of four collections,
 as depicted in the following figure,
 and they are all explained in detail.
 Statistics of the collections are also included,
-along with an example of a record.
+along with an example of record.
 
 \begin{figure}[ht]
 \centering
@@ -205,7 +201,7 @@ This is the first collection that was created.
 It contains all records of SentiWordNet 3.0.
 The data of the source file that is publicly available\footnote{\url {https://github.com/aesuli/SentiWordNet/blob/master/data/SentiWordNet_3.0.0.txt}}
 and that was used are in a complex format,
-making it the most difficult data source that had to be parsed
+making it the most difficult data source that was parsed
 for the construction of the particular database.
 The source file was initially converted
 from text (txt) format to comma-separated-values (csv) format,
@@ -220,66 +216,66 @@ Then multiple checks and filters were applied to the Python script
 according to the detected patterns,
 in order to construct the particular collection,
 based on a standard format.
-We finally formed the following fields:
+We finally formed the following fields.
 
 \begin{itemize}
-  \item \emph{\_id}: A concatenation of the ``pos'' (part-of-speech)
-  and the ``id'' fields of the source file.
-  This is the unique id of each record according to the SentiWordNet 3.0
+  \item \textbf{\_id}: A concatenation of the \emph{pos} (part of speech)
+  and the \emph{id} fields of the source file.
+  This is the unique id of each record according to SentiWordNet 3.0
   documentation provided in the beginning of the source file. 
   
-  \item \emph{sentiment}: It includes the fields ``PosScore'' (Positive Score)
-  and ``NegScore'' (Negative Score).
-  The field ``ObjScore'' (Objective Score) is calculated
-  based on the following formula according to the documentation: \\
+  \item \textbf{sentiment}: It includes the fields \emph{PosScore} (Positive Score)
+  and \emph{NegScore} (Negative Score).
+  The field \emph{ObjScore} (Objective Score) is calculated
+  based on the following formula according to documentation: \\
   $ObjScore = 1 - (PosScore + NegScore)$
   
-  \item \emph{gloss}: The most troubled field.
-  It includes explanations and examples of the use of the synonym sets
-  of the particular record.
+  \item \textbf{gloss}: The most troubled field.
+  It includes \emph{explanations} and \emph{examples}
+  of the use of the synonym sets of the particular record.
 
   For the examples, we noticed that they start with quotation marks
   and initially distinguished them based on that.
   We later found that some examples also include other phrases 
-  in quotation within them (e.g. ``the word `dog' is animate'')
+  in quotation within them (e.g. \emph{``the word `dog' is animate''})
   and this was not initially covered by our filters,
-  leading in some cases to wrong inputs to the field ``examples''.
+  leading in some cases to wrong inputs to the field \emph{examples}.
   In the above example, there would be inserted three examples
-  instead of one: ``the word'', ``dog'', ``is animate''.
+  instead of one: \emph{the word}, \emph{dog}, \emph{is animate}.
   We fixed this by applying regex rules
   that bypassed the inside quotation marks.
 
   For the explanations, we simply checked for a phrase
   whether it was an example according to the above rules,
-  and if not, then is was an explanation.
-  All phrases are separated by a semicolon (``;'')
+  and if not, then is was considered an explanation.
+  All phrases are separated by a semicolon (\emph{;})
   and we used this as a delimiter to separate the phrases
   of each record.
   We also included the number of explanations and examples
   found in the particular record.
   
-  \item \emph{pos}: The part-of-speech of the record.
+  \item \textbf{pos}: The part of speech of the record.
   
-  \item \emph{synsets}: One major difference between SentiWordNet 3.0
+  \item \textbf{synsets}: One major difference between SentiWordNet 3.0
   and 1.0 (the previous version) is
-  that 3.0 follows the ``bag-of-synsets'' logic
-  instead of ``bag-of-words'' that is followed in 1.0~\cite{BES10}.
+  that 3.0 follows the \emph{bag-of-synsets} logic
+  instead of \emph{bag-of-words} that is followed in 1.0~\cite{BES10}.
   This means that each record contains multiple terms
   that are semantically associated (synonym sets).
   
   For each record, we separated all terms included,
-  and made an object for each term under ``synsets''.
-  Each ``term'' contains a ``sense\_number'' from the source file,
+  and made an object for each term under \emph{synsets}.
+  Each \emph{term} contains a \emph{sense\_number} from the source file,
   which is a number that indicates the relevance of the term
-  to the particular synonym set, starting with a hashtag (``\#'').
+  to the particular synonym set, starting with a hashtag (\emph{\#}).
   In addition, we used spaCy library
-  to derive more grammatical information~\footnote{\url {https://spacy.io/usage/linguistic-features}}
-  about each term, and placed it under the field ``spacy''.
+  to derive more grammatical information~\footnote{\url{https://spacy.io/usage/linguistic-features}}
+  about each term, and placed it under the field \emph{spacy}.
   
-  \item \emph{swn\_id}: The id included in the source file for each record.
+  \item \textbf{swn\_id}: The id included in the source file for each record.
   However, this id is not unique.
   
-  \item \emph{synsets\_count}: The number of terms
+  \item \textbf{synsets\_count}: The number of terms
   found in the particular synonym set.
 \end{itemize}
 
@@ -295,18 +291,18 @@ for these, the sentiment scores are averages
 (the scores of all occurrences of a term were summed
 and divided with the number of occurrences),
 rounded to three decimal places.
-The fields included in this collection are the following:
+The fields included in this collection are the following.
 
 \begin{itemize}
- \item \emph{\_id}: A unique term of swn\_v3.
+ \item \textbf{\_id}: A unique term of swn\_v3.
 
- \item \emph{sentiment}: It contains the average sentiment scores
- (``PosScore'', ``NegScore'', ``ObjScore'') computed as described above
+ \item \textbf{sentiment}: It contains the average sentiment scores
+ (\emph{PosScore}, \emph{NegScore}, \emph{ObjScore}) computed as described above
  and rounded to three decimal places.
- It also includes the preponderant sentiment based on the maximum score
- (field ``majority'').
+ It also includes the dominant sentiment based on the maximum score
+ (field \emph{majority}).
 
- ``magic\_number'' is a number that occurred after a lot of hours
+ \emph{magic\_number} is a number that occurred after a lot of hours
  of discussion with my colleagues of the Technical team.
  We wanted to produce a number that would indicate for a term
  how strongly annotated it is
@@ -315,12 +311,12 @@ The fields included in this collection are the following:
  $magic\_number = (max\_score - intermediate\_score) + (max\_score - min\_score)$ \\
  This number receives values in range $[0,2]$.
  
- \item \emph{sources}: It includes all ids of the swn\_v3 records
+ \item \textbf{sources}: It includes all ids of the swn\_v3 records
  where the particular term was found.
  
- \item \emph{sources\_count}: The number of the above record ids.
+ \item \textbf{sources\_count}: The number of the above record ids.
  
- \item \emph{translation}: The translation of the term in Greek
+ \item \textbf{translation}: The translation of the term in Greek
  based on the Google Cloud Translation API
  as described in Section~\ref{subsec:research}.
  Two versions of the translation are included:
@@ -329,7 +325,7 @@ The fields included in this collection are the following:
  to a Greek term of greek\_terms in order to transfer sentiment,
  excluding any case sensitivity.
  
- \item \emph{words\_count}: Some terms are phrases, thus
+ \item \textbf{words\_count}: Some terms are phrases, thus
  it is listed for each term how many words it is composed of.
 \end{itemize}
 
@@ -337,51 +333,51 @@ The fields included in this collection are the following:
 \label{subsubsubsec:greek-terms}
 
 For the creation of the Greek lexicon,
-three initial data sources were used:
+three initial data sources were used.
 
 \begin{enumerate}
- \item \emph{Aspell v0.08}: An official Greek dictionary used in OpenOffice/LibreOffice Spell~\footnote{\url {http://www.elspell.gr/myspell}}
+ \item \textbf{Aspell v0.08}: An official Greek dictionary used in OpenOffice/LibreOffice Spell~\footnote{\url{http://www.elspell.gr/myspell}}
  that contains 828,806 terms.
     
- \item \emph{Wiktionary}: A dictionary of 92,747 Greek terms from Wiktionary.~\footnote{\url {https://github.com/eellak/gsoc2018-spacy/blob/6212c56f94ca3926b0959ddf9cee39df28e1c5a8/spacy/lang/el/lemmas/elwords_from_wiktionary.txt}}
+ \item \textbf{Wiktionary}: A dictionary of 92,747 Greek terms from Wiktionary.~\footnote{\url{https://github.com/eellak/gsoc2018-spacy/blob/6212c56f94ca3926b0959ddf9cee39df28e1c5a8/spacy/lang/el/lemmas/elwords_from_wiktionary.txt}}
 
- \item \emph{Greek Lemmas}: A collection of 458,331 Greek terms with their lemmas
- from the Google Summer of Code 2018 - 3gm project.~\footnote{\url {https://github.com/eellak/gsoc2018-3gm/blob/master/resources/greek_lemmas.py}}
+ \item \textbf{Greek Lemmas}: A collection of 458,331 Greek terms with their lemmas
+ from the Google Summer of Code 2018 - 3gm project.~\footnote{\url{https://github.com/eellak/gsoc2018-3gm/blob/master/resources/greek_lemmas.py}}
 \end{enumerate}
 
 The dictionary was then populated with the lemmas of the terms
 derived from spaCy library, leading to 97,793 new records in the collection.
-Eventually the following fields were constructed:
+Eventually the following fields were constructed.
 
 \begin{itemize}
- \item \emph{\_id}: A unique term derived from one of the above data sources.
+ \item \textbf{\_id}: A unique term derived from one of the above data sources.
  
- \item \emph{clean}: The term in lowercase with no intonation.
+ \item \textbf{clean}: The term in lowercase with no intonation.
  
- \item \emph{sentiment}: The sentiment mapped from english\_sentiment\_terms
+ \item \textbf{sentiment}: The sentiment mapped from english\_sentiment\_terms
  based on the lowercase translation.
  If the term was found in multiple lowercase translations,
  then the average scores are computed and inserted,
  rounded to three decimal places.
- The preponderant sentiment that corresponds to the maximum sentiment score
+ The dominant sentiment that corresponds to the maximum sentiment score
  is also included, along with the magic number as described before.
  
- \item \emph{sources}: The data source(s) of the term:
- ``aspell'', ``wiktionary'', ``greek\_lemmas'', ``lemmas\_generated''.
+ \item \textbf{sources}: The data source(s) of the term:
+ \emph{aspell}, \emph{wiktionary}, \emph{greek\_lemmas}, \emph{lemmas\_generated}.
  
- \item \emph{sources\_count}: The number of data sources of the term.
+ \item \textbf{sources\_count}: The number of data sources of the term.
  
- \item \emph{spacy}: Grammatical information of the term
+ \item \textbf{spacy}: Grammatical information of the term
  derived from spaCy library.
  
- \item \emph{words\_count}: The number of words that the term is composed of.
+ \item \textbf{words\_count}: The number of words that the term is composed of.
 \end{itemize}
 
 \subsubsubsection{greek\_sentiment\_terms}
 \label{subsubsubsec:greek-sentiment-terms}
 
-The last collection that was created
-contains the clean terms of greek\_terms as ids.
+The last collection that was created is the Greek sentiment lexicon
+and contains the clean terms of greek\_terms as ids.
 The reason lies in the algorithm,
 as described in Section~\ref{subsec:algorithm};
 the input text is cleaned from any case sensitivity or intonation,
@@ -393,46 +389,50 @@ that have received sentiment through the process
 described in Section~\ref{subsubsubsec:greek-terms}.
 If a clean word was found in multiple records of greek\_terms,
 again the average scores are computed and inserted
-to the ``sentiment'' field,
+to the \emph{sentiment} field,
 rounded to three decimal places.
-The fields of this collection are listed below:
+The fields of this collection are listed below.
 
 \begin{itemize}
- \item \emph{\_id}: A unique clean term from greek\_terms.
+ \item \textbf{\_id}: A unique clean term from greek\_terms.
  
- \item \emph{pos}: The part-of-speech of the term.
+ \item \textbf{pos}: The part of speech of the term.
  In cases of multiple occurrences of a clean term in greek\_terms,
- the part-of-speech receives the preponderant value,
- by counting the frequences of each part-of-speech
+ the part of speech receives the dominant value,
+ by counting the frequencies of each part of speech
  and computing the maximum value.
  
- \item \emph{sentiment}: The sentiment of the clean term.
+ \item \textbf{sentiment}: The sentiment of the clean term.
  Again in multiple occurrences of the clean term,
  the average scores are computed and inserted,
  rounded to three decimal places.
  
- \item \emph{sources\_count}: The number of occurrences
+ \item \textbf{sources\_count}: The number of occurrences
  of the clean term in greek\_terms.
  
- \item \emph{words\_count}: Since only single words are included,
- this field always has the value ``1''.
+ \item \textbf{words\_count}: Since only single words are included,
+ this field always has the value \emph{1}.
 \end{itemize}
 
 \subsubsection{Statistics}
 \label{subsubsec:statistics}
 
-The number of records of each collection is listed below:
+The number of records of each collection is listed below.
 
 \begin{itemize}
- \item \emph{swn\_v3}: 117,659 records
- \item \emph{english\_sentiment\_terms}: 148,834 records
+ \item \textbf{swn\_v3}: 117,659 records
+ \item \textbf{english\_sentiment\_terms}: 148,834 records
  \begin{itemize}
-  \item 4,869 with positive preponderant sentiment
-  \item 7,269 with negative preponderant sentiment
-  \item 136,696 with objective preponderant sentiment
+  \item 84,646 words
+  \item 64,188 phrases
+  \item 4,869 with positive dominant sentiment
+  \item 7,269 with negative dominant sentiment
+  \item 136,696 with objective dominant sentiment
  \end{itemize}
- \item \emph{greek\_terms}: 951,755 records
+ \item \textbf{greek\_terms}: 951,755 records
  \begin{itemize}
+  \item 951,111 words
+  \item 644 phrases
   \item 132,943 unique from Aspell
   \item 6,399 unique from Wiktionary
   \item 55 unique from Greek Lemmas
@@ -441,28 +441,26 @@ The number of records of each collection is listed below:
   \item 271,124 from three sources
   \item 16,208 from four sources
  \end{itemize}
- \item \emph{greek\_sentiment\_terms}: 27,542 records
+ \item \textbf{greek\_sentiment\_terms}: 27,542 records
  \begin{itemize}
-  \item 1,252 with positive preponderant sentiment
-  \item 1,883 with negative preponderant sentiment
-  \item 24,407 with objective preponderant sentiment
+  \item 1,252 with positive dominant sentiment
+  \item 1,883 with negative dominant sentiment
+  \item 24,407 with objective dominant sentiment
  \end{itemize} 
 \end{itemize}
-
-To the best of our knowledge,
-the collection ``greek\_sentiment\_terms'' currently forms
-the largest publicly available Greek lexicon annotated with sentiment.
 
 \subsubsection{Example of Record}
 \label{subsubsec:recexample}
 
 In the following figures
-the Greek term ``\textgreek{kakos}'' occurred in greek\_sentiment\_terms
-from the term ``\textgreek{kak'os}'' of greek\_terms.
-The terms ``maleficent'' and ``wicked'' of english\_sentiment\_terms
-are translated as ``\textgreek{kak'os}''.
-``maleficent'' was found in one record in swn\_v3,
-whereas ``wicked'' was found in five records. \\
+the Greek term \textgreek{kakos} occurred in greek\_sentiment\_terms
+from the term \textgreek{kak'os} of greek\_terms.
+The terms \emph{maleficent} and \emph{wicked} of english\_sentiment\_terms
+are translated as \textgreek{kak'os}.
+\emph{maleficent} was found in one record in swn\_v3,
+whereas \emph{wicked} was found in five records. \\
+
+\clearpage
 
 \textbf{greek\_sentiment\_terms: \textgreek{kakos}} \\
 
@@ -557,13 +555,13 @@ The algorithm starts by initialising a dictionary
 with the terms of greek\_sentiment\_terms,
 along with their sentiment (positive, negative, objective) scores.
 A text of type String is received as input.
-The text is separarated into sentences
-and each sentence is then cleaned from the following features:
+The text is separated into sentences
+and each sentence is then cleaned from the following features.
 
 \begin{itemize}
- \item the ``RT'' notation that is found in Twitter posts
- \item hashtags that start with the symbol ``\#''
- \item mentions of users that start with the symbol ``@''
+ \item the \emph{RT} notation that is found in Twitter posts
+ \item hashtags that start with the symbol \emph{\#}
+ \item mentions of users that start with the symbol \emph{@}
  \item links
  \item numbers
  \item stop words derived from a pre-defined list
@@ -575,21 +573,21 @@ and each sentence is then cleaned from the following features:
  No more than one identical consecutive vowel
  or two identical consecutive consonants are allowed in a word;
  any extra vowels/consonants are removed from the word
- (e.g. ``\textgreek{paiizw}'' becomes ``\textgreek{paizw}'',
- ``\textgreek{kuparisssi}'' becomes ``\textgreek{kuparissi}'').
+ (e.g. \textgreek{paiizw} becomes \textgreek{paizw},
+ \textgreek{kuparisssi} becomes \textgreek{kuparissi}).
 \end{itemize}
 A particular script of isMOOD is used for the text cleaning,
 unfortunately not publicly available.
 
 After a sentence is cleaned, it is separated into words.
 Each word is first attempted to be matched
-to a term of the abovementioned dictionary of greek\_sentiment\_terms.
+to a term of the above-mentioned dictionary of greek\_sentiment\_terms.
 If it is matched,
 the sentiment scores of the particular word are inferred from the dictionary.
 If it is not matched to any term of the dictionary,
 it is then lemmatised through spaCy library,
-using the ``el\_core\_news\_md'' pre-trained statistical model for Greek.\footnote{\url {https://spacy.io/models/el#el_core_news_md}}
-The medium model was preferred to the small one,
+using the \emph{el\_core\_news\_md} pre-trained statistical model for Greek.\footnote{\url {https://spacy.io/models/el#el_core_news_md}}
+The medium model was preferred to the small
 due to its higher Syntax and Named Entity Recognition (NER) accuracies,
 as reported in the Greek Models' Documentation page (\textit {see footnote}).
 
@@ -610,12 +608,12 @@ The particular process is repeated for all sentences of the input text.
 At the end,
 the sentiment scores of all sentences are summed
 and divided again with the total number of sentences.
-Thus, the final sentiment scores are the averages of the averages.
+Thus, the final sentiment scores are the average of the averages.
 
 The final sentiment polarity (positive/negative/objective)
 applied to an input text
-is derived from the preponderant (maximum) sentiment score.
-In case of equal preponderant scores,
+is derived from the dominant (maximum) sentiment score.
+In case of equal dominant scores,
 priority is conceded first to negative,
 then to positive, and lastly to objective sentiment.
 
@@ -627,7 +625,7 @@ and pay more attention to these
 than to the positive or the objective.
 In addition, clients tend to complain more
 about false positives than false negatives.
-Businesswise, it is more serious for a client
+Business-wise, it is more serious for a client
 to classify the phrase ``\emph{the company X is terrible}'' as positive
 than to classify the phrase ``\emph{the company X is great}'' as negative.
 
@@ -636,7 +634,7 @@ than to classify the phrase ``\emph{the company X is great}'' as negative.
 
 In the following figures
 a Greek text is inserted in the algorithm as input,
-and the preponderant sentiment is calculated,
+and the dominant sentiment is calculated,
 according to the average text sentiment scores.
 
 \begin{figure}[ht]
@@ -667,7 +665,7 @@ according to the average text sentiment scores.
 
 The algorithm was tested on a dataset of 444 Greek posts
 of the project of National Bank of Greece.
-The particular dataset had initally been annotated with sentiment
+The particular dataset had initially been annotated with sentiment
 through the main algorithm of isMOOD that uses Machine Learning methods,
 and then evaluated and corrected by the employees of isMOOD.
 The fact that it has been evaluated by human annotators
@@ -701,10 +699,10 @@ due to lack of time.
 However, there were a few discussions
 with my company supervisor and my academic advisor
 regarding the solution of this problem.
-Two suggestions that resulted from these discussions are the following:
+Two suggestions that resulted from these discussions are the following.
 
-\begin{enumerate}
- \item \emph{Suggestion 1}: Tone down the excessive objectivity
+\begin{description}
+ \item[Suggestion 1:] Tone down the excessive objectivity
  of greek\_sentiment\_terms
  by dividing the objective scores of all terms with a fixed number,
  and by adding the remaining percentage
@@ -717,9 +715,9 @@ Two suggestions that resulted from these discussions are the following:
  This suggestion is characterised by a considerable bias
  derived from the fact that number 3 is fit to the particular lexicon;
  there is no guarantee that number 3 will be the best option
- for any other lexicon annotated with sentiment.
+ for any other sentiment lexicon.
  
- \item \emph{Suggestion 2}: Append weights to words with higher sensitivity.
+ \item[Suggestion 2:] Append weights to words with higher sensitivity.
  A pre-defined list of words that has been annotated
  by human raters is required,
  in order to recover the most sensitive words.
@@ -728,4 +726,11 @@ Two suggestions that resulted from these discussions are the following:
  in terms of the bias described above.
  However, multiple human raters are demanded
  to ensure validity for the annotations of the words.
-\end{enumerate}
+\end{description}
+
+The particular issue will be attempted to be solved
+beyond the context of the internship
+in collaboration with my company supervisor and my academic advisor.
+It is my desire to continue working on this project
+in order to improve the performance of the algorithm
+and make it appropriate for production.

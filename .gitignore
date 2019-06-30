@@ -4,13 +4,12 @@
 *.drawio
 *.dvi
 *.gz
+*.jpg
 *.lof
 *.log
 *.out
-thesis.pdf
+*.pdf
+*.png
 thesis.ps
 *.toc
 *.txt
-figures/README
-pdfa/README
-pdfa/sRGB Color Space Profile.readme
