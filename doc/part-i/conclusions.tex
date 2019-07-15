@@ -1,0 +1,61 @@
+\section{Conclusions}
+\label{sec:conclusions1}
+
+Automated opinion and/or sentiment mining is a very promising topic
+with potential applications in social, political, marketing, financial,
+and other fields.
+With the abrupt emergence of the social media use 
+a lot of information is now available regarding user opinions
+that can be used to extract valuable insights.
+Companies or other stakeholders can benefit from such insights
+in order to improve their services and overall performance.
+
+Various attempts have been made for the analysis of sentiments
+embedded in users' documents, posts, comments, artefacts
+by the research community.
+Some focus on specific parts of a document such as sentences
+or entities and aspects, while others evaluate the document as a whole.
+There are also works that integrate particular features into the analysis
+such as semantic or syntactic features.
+Two are the most frequently encountered approaches to perform sentiment analysis.
+The first involves machine learning methods
+whereas the second incorporates the use of sentiment lexicons.
+Related work has demonstrated that the machine learning approach performs better
+in domain-specific analyses, as opposed to the lexicon-based approach
+which is more preferable for cross-domain analyses.
+
+A variety of methods have been proposed in literature
+for the construction of accurate and adequate sentiment lexicons.
+Some suggest manual annotation of a lexicon
+while others propose more automated approaches
+using for instance a set of seed words and online dictionaries
+for the propagation of the seed list with synonyms and antonyms.
+Linguistic rules are often applied to lexicon-based sentiment analyses
+such as part-of-speech information, connectives, or contextual valence shifters.
+
+Another important aspect of the lexicon-based approach is the word identification.
+In order to match a word of a text to a term of the sentiment lexicon,
+three main methods are widely used.
+The first proposes stemming of the word but with a threat of over-stemming
+or under-stemming. The second suggests lemmatisation,
+and the third employs the concept of edit distance.
+Edit distance is connected to some sort of bias
+resulted from the manual selection of thresholds.
+For instance, Dritsa~\cite{Dri18} chose to use a threshold of 0.97
+when she implemented the Jaro-Winkler algorithm.
+
+The Greek language has been a challenge for a lot of researchers
+mainly due to the lack of publicly available Greek sentiment lexicons.
+In addition, the fact that it is a highly inflected language
+with multiple variants for each term complicates the process
+of word identification.
+Therefore, sentiment analysis for the Greek language, particularly
+lexicon-based, is an active and promising area of research
+and we are still on the foothills of it.
+
+Finally, in this thesis a methodology is suggested for the construction
+of a Greek sentiment lexicon based on the translation of an English,
+along with a baseline algorithm for the sentiment analysis of Greek documents
+inspired from the aggregate-and-average method.
+This methodology is implemented and evaluated in Part II of this artefact
+in the context of an internship.

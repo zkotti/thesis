@@ -1,0 +1,199 @@
+\section{Our Methodology}
+\label{sec:methodology}
+
+In the context of this thesis,
+a particular methodology was developed
+and later implemented in Part II: Section~\ref{sec:results}
+for the application of lexicon-based sentiment analysis on Greek text data.
+This methodology was mostly inspired by The Social Sensor Project~\cite{BPP14} and a work on cross-linguistic sentiment analysis~\cite{BTT09},
+and is consisted of two phases:
+
+\begin{enumerate}
+ \item the construction of a Greek sentiment lexicon, and
+ \item the development of a baseline algorithm for sentiment analysis of Greek texts
+\end{enumerate}
+
+\subsection{Greek Sentiment Lexicon}
+\label{subsec:lexicon}
+
+The sentiment that we were interested in involves polarity
+(\emph{positive, negative, objective})
+rather than emotions
+(e.g. \emph{Love, Joy, Surprise, Anger, Fear, Sadness}
+explored in other studies~\cite{CLNQ19}).
+
+For the construction of the Greek sentiment lexicon,
+we first searched for any already available sources of Greek opinion terms.
+We only found one source publicly available,
+the collection of Greek positive and negative words
+of the Multilingual Sentiment Project
+of the Data Science Lab,~\footnote{\url{https://sites.google.com/site/datascienceslab/projects/multilingualsentiment}}
+which comprises of 1,067 positive and 1,636 negative words.
+These numbers were not sufficient for the purpose of our project,
+thus we looked for alternatives.
+
+We were then inspired by Brooke et al.~\cite{BTT09}
+who translated an English sentiment lexicon into Spanish
+for the application of lexicon-based sentiment analysis.
+Following this approach,
+we found an English sentiment lexicon,
+translated it into Greek,
+constructed a Greek non-annotated lexicon,
+and transferred sentiment from the English lexicon to the Greek.
+
+\subsubsection{Greek Non-annotated Lexicon}
+\label{subsubsec:greek}
+
+For the construction of the Greek non-annotated lexicon,
+we used the following sources.
+
+\begin{itemize}
+ \item the Aspell dictionary~\footnote{ \url{http://www.elspell.gr/aspell}}
+ \item the Greek wiktionary~\footnote{ \url{https://github.com/eellak/gsoc2018-spacy/blob/6212c56f94ca3926b0959ddf9cee39df28e1c5a8/spacy/lang/el/lemmas/elwords_from_wiktionary.txt}}
+ \item the set of Greek words and lemmas used
+ in the Google Summer of Code 2018 - 3gm project~\footnote{ \url{https://github.com/eellak/gsoc2018-3gm/blob/master/resources/greek_lemmas.py}}
+\end{itemize}
+
+We also populated the final lexicon with the lemmas of the terms included in these sources as explained in Section~\ref{subsubsec:lemmatisation}.
+
+\subsubsection{English sentiment Lexicon}
+\label{subsubsec:english}
+
+The English sentiment lexicons that were considered
+for the translation process are the following.
+The majority were retrieved from the list of lexicons by Prof. Christopher Potts
+of Stanford University.~\footnote{ \url{http://sentiment.christopherpotts.net/lexicons.html#resources}}
+
+\begin{itemize}
+ \item the English collection of positive and negative words of the Multilingual Sentiment Project
+ \item SentiWordNet 3.0~\cite{BES10}
+ \item the SocialSent dataset of domain-specific sentiment lexicons~\cite{HCLJ16}
+ \item the MPQA (Multi-Perspective Question Answering) Subjectivity Lexicon~\footnote{ \url{http://mpqa.cs.pitt.edu/}}
+ \item Bing Liu's Opinion Lexicon~\footnote{ \url{https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html}}
+ \item Harvard General Inquirer~\footnote{ \url{http://www.wjh.harvard.edu/~inquirer/spreadsheet_guide.htm}}
+\end{itemize}
+
+We decided to use SentiWordNet 3.0 because it has been annotated
+by six different human raters,
+consists of 117,659 synonym sets (synsets),
+and is the most reputed and validated of the above list~\cite{BES10}.
+
+\subsubsection{Lemmatisation}
+\label{subsubsec:lemmatisation}
+
+We used lemmatisation for two purposes:
+
+\begin{enumerate}
+ \item for the population of the Greek lexicon with the lemmas of the terms, and
+ \item for the lemmatisation of the words of the input text of the algorithm
+\end{enumerate}
+
+We chose lemmatisation over stemming and edit distance described in Section~\ref{subsec:identification} because we consider it a more accurate
+and appropriate technique for the Greek language.
+However, only two lemmatisers were found for the Greek language:
+
+\begin{itemize}
+ \item the lemmatiser of the Classical Language Toolkit (CLTK)~\footnote{\url{http://docs.cltk.org/en/latest/greek.html#lemmatization}}
+ \item the lemmatiser of spaCy~\footnote{\url{https://spacy.io/api/lemmatizer}}
+\end{itemize}
+
+We tested both lemmatisers and found spaCy to be more efficient and accurate
+on our project, thus we preferred this to the CLTK.
+
+\subsubsection{Translation}
+\label{subsubsec:translation}
+
+For the translation of the English terms into Greek,
+we considered the following APIs and libraries.
+
+\begin{itemize}
+ \item Google Translation API~\footnote{\url{https://cloud.google.com/translate/}}
+ \item Microsoft Translator Text API~\footnote{\url{https://www.microsoft.com/en-us/translator/}}
+ \item TextBlob: This library uses the Google Translation API.~\footnote{\url{https://textblob.readthedocs.io/en/dev/}}
+ \item PyPI translate~\footnote{\url{https://pypi.org/project/translate/}}
+\end{itemize}
+
+The above Python libraries either have request limits
+or their accuracy and performance is lower than the APIs'.
+Therefore, we decided to use the Google Translation API.
+The only reason we chose Google's over Microsoft's is
+because Google offers a free amount of credits
+that can be used on any Google Cloud service.
+
+\subsection{Algorithm}
+\label{subsec:algorithm}
+
+A baseline algorithm was preferred to a more sophisticated approach
+because this was requested in the context of my internship.
+The most appropriate method for that cause was the \emph{aggregate-and-average} method
+which was inspired from the lexicon-based methods for sentiment analysis~\cite{TBTV11}.
+
+According to this method,
+the individual scores for each word in a document are added together
+and then divided by the total number of words in that document.
+The particular method has been implemented
+in the early versions of SO-CAL (Sentiment Orientation Calculator)~\cite{TG04,TAV06} which rely on an adjective dictionary
+to predict the overall sentiment orientation of a document.
+
+The advantage of the aggregate-and-average method is
+that it can be applied to all levels of sentiment analysis
+described in Section~\ref{subsec:levels}.
+The downside is that it is more appropriate for sentence-level or short text data
+due to the fact that long documents may include multiple conflicting opinions
+that lead to an ambivalent overall sentiment.
+In this case the aggregate-and-average method will produce the dominant
+sentiment of the words of the document altogether,
+disregarding the variety of opinions.
+
+In order to reduce this downside,
+we decided to combine the document-level with the sentence-level approach,
+in terms that a document is broken down into sentences
+and each sentence is treated separately.
+At the end, the sentiments of all sentences are aggregated
+and divided by the total number of sentences.
+In this way,
+instead of treating the words of the document altogether,
+we treat them in sentences.
+Therefore,
+if a document is composed, for instance, of three positive and two negative sentences,
+the overall sentiment of the document will be positive.
+What is not handled, however,
+is the aspect level
+when multiple conflicting opinions are found in the same sentence
+(e.g. \emph{``The room was beautiful but the hospitality was awful.''}).
+
+\clearpage
+
+\subsubsection{Steps}
+\label{subsubsec:steps}
+
+The steps of the algorithm are described in detail further on.
+
+\hfill
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{The overall sentiment polarity of the document}
+ Initialise the Greek sentiment lexicon\;
+ Insert the Greek input text\;
+ Break down the text into sentences\;
+ \ForEach{sentence}{
+  Clean the sentence from unwanted features\;
+  Break down the sentence into words\;
+  \ForEach{word}{
+   \uIf{word exists in Greek sentiment lexicon}{
+    Retrieve sentiment (positive, negative, objective) scores of word\;
+   }
+   \uElseIf{lemma of word exists in Greek sentiment lexicon}{
+    Retrieve sentiment (positive, negative, objective) scores of lemma\;
+   }
+  }
+  Aggregate the scores of all words\;
+  Divide the aggregated scores with the total number of annotated words\;
+ }
+ Aggregate the average scores of all sentences\;
+ Divide the aggregated average scores with the total number of annotated sentences\;
+ Find the maximum average-of-the-average sentiment score\;
+ Match the maximum score to a sentiment polarity (positive, negative, objective)\;
+ \caption{Sentiment analysis of a document}
+\end{algorithm}

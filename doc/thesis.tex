@@ -1,0 +1,70 @@
+\documentclass[dvips, letterpaper, 12pt]{report}
+
+\usepackage{thesis}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[none]{hyphenat}
+\usepackage[export]{adjustbox}
+\graphicspath{{./figures/}}
+\usepackage{url}
+\usepackage[noadjust]{cite}
+\usepackage{tabularx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% Handle warnings
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+\apptocmd{\sloppy}{\vbadness 10000\relax}{}{}
+
+\renewcommand\thesection{\arabic{section}}
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+
+\begin{document}
+
+\sloppy
+
+\pagenumbering{arabic}
+
+\thesistitle
+    {\includegraphics[width=\textwidth]{aueb_logo.eps}}
+	{Implementation of Lexicon-based Sentiment Analysis \\
+	\vspace{3mm}
+	 on Greek Text Data \\
+	\vspace{1cm}
+	 -- at isMOOD Data Technology Services --}
+    {B\emph{Sc} Thesis}
+	{Zoe Kotti}
+	{(8150062)}
+	{Department of \emph{Management Science and Technology} \\
+     Athens University of Economics and Business}
+	{Academic Advisor: Prof. Diomidis Spinellis \\
+     Company Supervisor: Stauros Triantafyllos}
+    {\emph{Athens, July 2019}}
+
+\include{abstract}
+\include{ack}
+
+\tableofcontents
+
+\include{part-i/parti}
+\include{part-i/preface}
+\include{part-i/analysis}
+\include{part-i/lexicon}
+\include{part-i/methodology}
+\include{part-i/conclusions}
+
+\include{part-ii/partii}
+\include{part-ii/introduction}
+\include{part-ii/internship}
+\include{part-ii/projects}
+\include{part-ii/results}
+\include{part-ii/timetable}
+\include{part-ii/skills}
+\include{part-ii/conclusions}
+
+\include{bib}
+\appendix
+\include{apdxa}
+
+\end{document}

@@ -1,0 +1,15 @@
+*.aux
+*.bbl
+*.blg
+*.drawio
+*.dvi
+*.gz
+*.jpg
+*.lof
+*.log
+*.out
+*.pdf
+*.png
+thesis.ps
+*.toc
+*.txt
