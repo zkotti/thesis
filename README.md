@@ -11,7 +11,7 @@ isMOOD is a Greek B2B company in the field of text analytics,
 providing services through an in-house platform and customised reports.
 The asset of the company lies in the application of sentiment analysis
 on text data coming from various social media sources
-(e.g. Facebook, Twitter, Instagram, YouTube, news sites, forums, blogs).
+(e.g. Facebook, Twitter, Instagram, YouTube, news sites, forums, blogs). \
 As a *Back-end Developer* intern at isMOOD I implemented a lexicon-based approach
 for performing sentiment analysis on Greek text data.
 The technologies I used were *Python 2.7* and *MongoDB*.
