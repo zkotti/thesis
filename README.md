@@ -3,7 +3,7 @@
 The particular thesis was implemented in the context of my undergraduate studies
 at the [Athens University of Economics and Business](https://www.aueb.gr/en),
 in the [Department of Management Science and Technology](https://www.dept.aueb.gr/en/dmst),
-during the spring semester 2018--'19. The thesis is a combination of:
+during the spring semester 2018&ndash;'19. The thesis is a combination of:
 - the final report of my internship at [isMOOD Data Technology Services](https://www.ismood.com/) company, and
 - literature review associated with the project I worked on during this internship.
 
